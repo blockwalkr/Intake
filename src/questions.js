@@ -643,3 +643,265 @@ export const ALL_QUESTION_IDS = SECTIONS.flatMap((s) =>
 );
 
 export default SECTIONS;
+
+// ── CPS (Custody Policy Statement) Questions ─────────
+
+export const CPS_SECTIONS = [
+  {
+    num: 1,
+    title: "Digital Asset Background",
+    subtitle: "Experience, holdings, and current custody",
+    instruction:
+      "This section establishes the client's cryptocurrency experience and current position.",
+    subsections: [
+      {
+        label: null,
+        questions: [
+          {
+            id: "cps1",
+            q: "What is your level of experience with cryptocurrencies? What is your most advanced exposure?",
+            type: "combo",
+            options: ["Beginner", "Intermediate", "Expert"],
+            radioName: "cryptoExperience",
+            followUp: "Describe your most advanced exposure:",
+          },
+          {
+            id: "cps2",
+            q: "What types of crypto assets do you currently own or plan to acquire?",
+            type: "check",
+            options: [
+              "Bitcoin",
+              "Ethereum",
+              "Altcoins",
+              "NFTs",
+              "Stablecoins",
+              "DeFi Tokens",
+              "None Currently",
+            ],
+            noneOptions: ["None Currently"],
+            followUp: "Other assets or details:",
+          },
+          {
+            id: "cps3",
+            q: "Approximately what is the total value of your crypto holdings?",
+            type: "combo",
+            options: [
+              "Under $10,000",
+              "$10,000–$50,000",
+              "$50,000–$250,000",
+              "$250,000–$1M",
+              "Over $1M",
+            ],
+            radioName: "cryptoValue",
+            followUp: "Additional context:",
+          },
+          {
+            id: "cps4",
+            q: "How are your crypto assets currently custodied?",
+            type: "check",
+            options: [
+              "ETFs",
+              "Digital Asset Trusts (DATs)",
+              "Exchange (e.g., Coinbase, Kraken)",
+              "Hardware Wallet (e.g., Ledger, Trezor)",
+              "Software Wallet",
+              "Paper Wallet",
+              "Not Currently Holding",
+            ],
+            noneOptions: ["Not Currently Holding"],
+            followUp: "Specify platforms or devices:",
+          },
+          {
+            id: "cps5",
+            q: "Have you ever experienced any security incidents with your crypto, such as hacks, lost keys, or scams? If so, how did you react?",
+            type: "text",
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    num: 2,
+    title: "Risk & Security Preferences",
+    subtitle: "Custody approach, key management, and security practices",
+    instruction:
+      "Determines the appropriate custody model based on the client's risk tolerance and technical comfort.",
+    subsections: [
+      {
+        label: null,
+        questions: [
+          {
+            id: "cps6",
+            q: "What is your risk tolerance for crypto custody?",
+            type: "combo",
+            options: [
+              "Self-Custody (full control)",
+              "Third-Party Custody (convenience & insurance)",
+              "Hybrid (split between both)",
+              "Unsure — Need Guidance",
+            ],
+            radioName: "custodyRisk",
+            followUp: "Additional thoughts:",
+          },
+          {
+            id: "cps7",
+            q: "Are you comfortable managing private keys yourself, or would you prefer a custodial service?",
+            type: "combo",
+            options: [
+              "Comfortable Self-Managing",
+              "Prefer Custodial Service",
+              "Open to Either",
+            ],
+            radioName: "keyManagement",
+            followUp: "Notes:",
+          },
+          {
+            id: "cps8",
+            q: "Are you aware of the risks associated with self-custody (asset loss, social engineering, and wrench attacks)?",
+            type: "combo",
+            options: [
+              "Yes, Fully Aware",
+              "Somewhat Aware",
+              "Not Aware — Need Education",
+            ],
+            radioName: "selfCustodyRisk",
+          },
+          {
+            id: "cps9",
+            q: "Do you prioritize any of the following custody features?",
+            type: "check",
+            options: [
+              "Multi-Signature Wallets",
+              "Cold Storage",
+              "Insurance Against Theft/Loss",
+              "Geographic Distribution",
+              "Institutional-Grade Security",
+              "No Specific Preferences",
+            ],
+            noneOptions: ["No Specific Preferences"],
+            followUp: "Other priorities:",
+          },
+          {
+            id: "cps10",
+            q: "What security practices do you currently use?",
+            type: "check",
+            options: [
+              "Two-Factor Authentication (2FA)",
+              "Seed Phrase Backups",
+              "Hardware Security Modules",
+              "Password Manager",
+              "Biometric Authentication",
+              "Air-Gapped Devices",
+              "None",
+            ],
+            noneOptions: ["None"],
+            followUp: "Other practices:",
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    num: 3,
+    title: "Goals & Usage",
+    subtitle: "Investment objectives, access frequency, and budget",
+    instruction: null,
+    subsections: [
+      {
+        label: null,
+        questions: [
+          {
+            id: "cps11",
+            q: "What are your primary goals for these crypto assets?",
+            type: "check",
+            options: [
+              "Long-Term Investment (HODL)",
+              "Active Trading",
+              "Staking / Yield Farming",
+              "DeFi Participation",
+              "Payments / Transactions",
+              "Portfolio Diversification",
+            ],
+            followUp: "Additional objectives:",
+          },
+          {
+            id: "cps12",
+            q: "How frequently do you plan to access or transact with your crypto?",
+            type: "combo",
+            options: ["Daily", "Weekly", "Monthly", "Quarterly", "Rarely"],
+            radioName: "accessFrequency",
+          },
+          {
+            id: "cps13",
+            q: "Are there specific use cases, like integrating with traditional portfolios or using crypto for payments?",
+            type: "text",
+          },
+          {
+            id: "cps14",
+            q: "What budget do you have for custody solutions?",
+            type: "combo",
+            options: [
+              "Minimal (free / low-cost tools)",
+              "Moderate ($50–$300/yr for hardware/subscriptions)",
+              "Significant (institutional custodian fees)",
+              "Need Guidance on Options",
+            ],
+            radioName: "custodyBudget",
+            followUp: "Notes:",
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    num: 4,
+    title: "Regulatory & Estate Planning",
+    subtitle: "Jurisdiction, tax compliance, and succession",
+    instruction:
+      "Ensures custody solutions meet regulatory requirements and estate planning needs.",
+    subsections: [
+      {
+        label: null,
+        questions: [
+          {
+            id: "cps15",
+            q: "In which jurisdictions are you tax-resident or hold citizenship?",
+            type: "text",
+          },
+          {
+            id: "cps16",
+            q: "Are you aware of tax implications for your crypto holdings? Do you need custody options that support reporting (e.g., KYC-compliant platforms)?",
+            type: "combo",
+            options: [
+              "Yes, Aware — Need Compliant Platform",
+              "Somewhat Aware",
+              "Not Aware — Need Education",
+              "Already Working with a CPA on This",
+            ],
+            radioName: "cryptoTax",
+            followUp: "Details:",
+          },
+          {
+            id: "cps17",
+            q: "Do you have an estate plan for the transfer of your digital assets?",
+            type: "combo",
+            options: [
+              "Yes, Fully Documented",
+              "Partially — Needs Updating",
+              "No — Need to Create One",
+            ],
+            radioName: "cryptoEstate",
+            followUp: "Details or concerns:",
+          },
+        ],
+      },
+    ],
+  },
+];
+
+export const ALL_CPS_QUESTION_IDS = CPS_SECTIONS.flatMap((s) =>
+  s.subsections.flatMap((sub) => sub.questions.map((q) => q.id))
+);

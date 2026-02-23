@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import SECTIONS, { ALL_QUESTION_IDS } from "./questions";
+import SECTIONS, { ALL_QUESTION_IDS, CPS_SECTIONS, ALL_CPS_QUESTION_IDS } from "./questions";
 import {
   loadClientList,
   createClient as apiCreateClient,
@@ -8,6 +8,7 @@ import {
   deleteClientData,
   isAnswered,
   buildLLMExport,
+  buildCPSExport,
 } from "./storage";
 import { Icons, Toast, SectionCard } from "./components";
 
@@ -21,6 +22,15 @@ SECTIONS.forEach((s) => {
   });
 });
 
+const CPS_SECTION_STARTS = {};
+let _cq = 0;
+CPS_SECTIONS.forEach((s) => {
+  CPS_SECTION_STARTS[s.num] = _cq + 1;
+  s.subsections.forEach((sub) => {
+    _cq += sub.questions.length;
+  });
+});
+
 export default function App() {
   const [clients, setClients] = useState([]);
   const [activeId, setActiveId] = useState(null);
@@ -28,6 +38,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [collapsed, setCollapsed] = useState({});
+  const [activeTab, setActiveTab] = useState("ips");
   const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [newName, setNewName] = useState("");
@@ -139,12 +150,14 @@ export default function App() {
   };
 
   const safeName = (n) => (n || "export").replace(/\s+/g, "_");
+  const tabLabel = activeTab === "ips" ? "IPS" : "CPS";
 
   const exportLLM = () => {
     if (!clientData) return;
+    const builder = activeTab === "ips" ? buildLLMExport : buildCPSExport;
     download(
-      new Blob([buildLLMExport(clientData)], { type: "text/plain" }),
-      `IPS_LLM_${safeName(clientData.clientName)}.txt`
+      new Blob([builder(clientData)], { type: "text/plain" }),
+      `${tabLabel}_LLM_${safeName(clientData.clientName)}.txt`
     );
   };
 
@@ -154,45 +167,50 @@ export default function App() {
       new Blob([JSON.stringify(clientData, null, 2)], {
         type: "application/json",
       }),
-      `IPS_Data_${safeName(clientData.clientName)}.json`
+      `Client_Data_${safeName(clientData.clientName)}.json`
     );
   };
 
   const copyLLMPrompt = async () => {
     if (!clientData) return;
+    const builder = activeTab === "ips" ? buildLLMExport : buildCPSExport;
     try {
-      await navigator.clipboard.writeText(buildLLMExport(clientData));
-      showToast("Copied to clipboard!");
+      await navigator.clipboard.writeText(builder(clientData));
+      showToast(`${tabLabel} prompt copied to clipboard!`);
     } catch {
       showToast("Failed to copy — check browser permissions");
     }
   };
 
-  // ── Progress ──
+  // ── Progress (tab-aware) ──
 
+  const currentQIds = activeTab === "ips" ? ALL_QUESTION_IDS : ALL_CPS_QUESTION_IDS;
   const totalAnswered = clientData
-    ? ALL_QUESTION_IDS.filter((id) => isAnswered(clientData.answers[id])).length
+    ? currentQIds.filter((id) => isAnswered(clientData.answers[id])).length
     : 0;
-  const totalQuestions = ALL_QUESTION_IDS.length;
+  const totalQuestions = currentQIds.length;
   const progressPct =
     totalQuestions > 0 ? (totalAnswered / totalQuestions) * 100 : 0;
 
-  // ── Jump to first unanswered ──
+  // ── Jump to first unanswered (tab-aware) ──
 
   const jumpToFirstUnanswered = () => {
     if (!clientData) return;
-    const firstId = ALL_QUESTION_IDS.find(
+    const sections = activeTab === "ips" ? SECTIONS : CPS_SECTIONS;
+    const qIds = activeTab === "ips" ? ALL_QUESTION_IDS : ALL_CPS_QUESTION_IDS;
+    const prefix = activeTab === "ips" ? "" : "cps_";
+    const firstId = qIds.find(
       (id) => !isAnswered(clientData.answers[id])
     );
     if (!firstId) {
-      showToast("All questions answered!");
+      showToast(`All ${tabLabel} questions answered!`);
       return;
     }
-    for (const s of SECTIONS) {
+    for (const s of sections) {
       for (const sub of s.subsections) {
         for (const q of sub.questions) {
           if (q.id === firstId) {
-            setCollapsed((prev) => ({ ...prev, [s.num]: false }));
+            setCollapsed((prev) => ({ ...prev, [`${prefix}${s.num}`]: false }));
             setTimeout(() => {
               const el = document.querySelector(`[data-qid="${firstId}"]`);
               if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -532,7 +550,7 @@ export default function App() {
               {/* Export buttons */}
               {[
                 {
-                  label: "Copy LLM Prompt",
+                  label: `Copy ${tabLabel} Prompt`,
                   icon: Icons.file,
                   onClick: copyLLMPrompt,
                   bg: "transparent",
@@ -540,7 +558,7 @@ export default function App() {
                   border: "1px solid #2b6cb0",
                 },
                 {
-                  label: "Export for LLM",
+                  label: `Export ${tabLabel} for LLM`,
                   icon: Icons.download,
                   onClick: exportLLM,
                   bg: "#c9a84c",
@@ -712,20 +730,109 @@ export default function App() {
                 ))}
               </div>
 
-              {/* Sections */}
-              {SECTIONS.map((s) => (
-                <SectionCard
-                  key={s.num}
-                  section={s}
-                  answers={clientData.answers}
-                  onAnswer={updateAnswer}
-                  startNum={SECTION_STARTS[s.num]}
-                  collapsed={!!collapsed[s.num]}
-                  onToggle={() =>
-                    setCollapsed((p) => ({ ...p, [s.num]: !p[s.num] }))
-                  }
-                />
-              ))}
+              {/* Tabs */}
+              <div
+                style={{
+                  display: "flex",
+                  gap: 0,
+                  marginBottom: 20,
+                  background: "#fff",
+                  borderRadius: 10,
+                  border: "1px solid #e2e8f0",
+                  overflow: "hidden",
+                  boxShadow: "0 1px 4px rgba(15,42,68,.04)",
+                }}
+              >
+                {[
+                  { key: "ips", label: "Investment Policy Statement", short: "IPS" },
+                  { key: "cps", label: "Custody Policy Statement", short: "CPS" },
+                ].map((tab) => {
+                  const active = activeTab === tab.key;
+                  const ids = tab.key === "ips" ? ALL_QUESTION_IDS : ALL_CPS_QUESTION_IDS;
+                  const answered = ids.filter((id) => isAnswered(clientData.answers[id])).length;
+                  const total = ids.length;
+                  return (
+                    <button
+                      key={tab.key}
+                      onClick={() => setActiveTab(tab.key)}
+                      style={{
+                        flex: 1,
+                        padding: "12px 16px",
+                        border: "none",
+                        background: active ? "#0f2a44" : "transparent",
+                        color: active ? "#fff" : "#475569",
+                        fontFamily: "'DM Sans', sans-serif",
+                        fontSize: 13.5,
+                        fontWeight: 600,
+                        cursor: "pointer",
+                        transition: "all .2s",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: 8,
+                      }}
+                    >
+                      <span style={{ fontFamily: "'Fraunces', serif", color: active ? "#c9a84c" : "#94a3b8", fontWeight: 700 }}>
+                        {tab.short}
+                      </span>
+                      <span style={{ display: "inline", fontSize: 12, opacity: 0.7 }}>
+                        {tab.label.replace(tab.short + " ", "").replace("Statement", "Stmt")}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: 10.5,
+                          fontWeight: 600,
+                          padding: "2px 8px",
+                          borderRadius: 12,
+                          background: active ? "rgba(201,168,76,.2)" : "#f1f5f9",
+                          color: active ? "#c9a84c" : "#94a3b8",
+                          marginLeft: 4,
+                        }}
+                      >
+                        {answered}/{total}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* IPS Sections */}
+              {activeTab === "ips" && (
+                <>
+                  {SECTIONS.map((s) => (
+                    <SectionCard
+                      key={s.num}
+                      section={s}
+                      answers={clientData.answers}
+                      onAnswer={updateAnswer}
+                      startNum={SECTION_STARTS[s.num]}
+                      collapsed={!!collapsed[s.num]}
+                      onToggle={() =>
+                        setCollapsed((p) => ({ ...p, [s.num]: !p[s.num] }))
+                      }
+                    />
+                  ))}
+                </>
+              )}
+
+              {/* CPS Sections */}
+              {activeTab === "cps" && (
+                <>
+                  {CPS_SECTIONS.map((s) => (
+                    <SectionCard
+                      key={`cps_${s.num}`}
+                      section={s}
+                      answers={clientData.answers}
+                      onAnswer={updateAnswer}
+                      startNum={CPS_SECTION_STARTS[s.num]}
+                      collapsed={!!collapsed[`cps_${s.num}`]}
+                      onToggle={() =>
+                        setCollapsed((p) => ({ ...p, [`cps_${s.num}`]: !p[`cps_${s.num}`] }))
+                      }
+                    />
+                  ))}
+                </>
+              )}
 
               {/* Signatures */}
               <div
