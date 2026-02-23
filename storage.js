@@ -1,43 +1,47 @@
 /**
- * Persistent storage helpers (uses window.storage API)
- * and LLM-optimized export builder.
+ * Storage layer — communicates with the local JSON-file API server.
+ * Also contains the isAnswered() utility and LLM export builder.
  */
 import SECTIONS from "./questions";
 
-// ── Storage ──────────────────────────────────────────
+const API = "/api/clients";
 
-async function get(key) {
-  try {
-    const r = await window.storage.get(key);
-    return r ? JSON.parse(r.value) : null;
-  } catch {
-    return null;
-  }
+// ── Client CRUD ──────────────────────────────────────
+
+export async function loadClientList() {
+  const res = await fetch(API);
+  if (!res.ok) return [];
+  return res.json();
 }
 
-async function set(key, value) {
-  await window.storage.set(key, JSON.stringify(value));
+export async function createClient(name) {
+  const res = await fetch(API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name }),
+  });
+  if (!res.ok) throw new Error("Failed to create client");
+  return res.json();
 }
 
-async function remove(key) {
-  try { await window.storage.delete(key); } catch { /* noop */ }
+export async function loadClientData(id) {
+  const res = await fetch(`${API}/${id}`);
+  if (!res.ok) return null;
+  return res.json();
 }
 
-export async function loadClientList() { return (await get("ips-cl")) || []; }
-export async function saveClientList(list) { await set("ips-cl", list); }
-export async function loadClientData(id) { return get(`ips-d-${id}`); }
-export async function saveClientData(id, data) { await set(`ips-d-${id}`, data); }
-export async function deleteClientData(id) { await remove(`ips-d-${id}`); }
+export async function saveClientData(id, data) {
+  const res = await fetch(`${API}/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error("Failed to save client data");
+  return res.json();
+}
 
-export function freshClientData(name) {
-  return {
-    clientName: name || "",
-    date: new Date().toISOString().split("T")[0],
-    advisor: "",
-    answers: {},
-    createdAt: Date.now(),
-    updatedAt: Date.now(),
-  };
+export async function deleteClientData(id) {
+  await fetch(`${API}/${id}`, { method: "DELETE" });
 }
 
 // ── Answer detection ─────────────────────────────────
@@ -54,10 +58,9 @@ export function isAnswered(answer) {
   );
 }
 
-// ── LLM export ───────────────────────────────────────
+// ── LLM export builder ──────────────────────────────
 
 export function buildLLMExport(clientData) {
-  const line = (s) => s;
   const rule = (ch, n = 72) => ch.repeat(n);
   const L = [];
 
@@ -85,14 +88,18 @@ export function buildLLMExport(clientData) {
       sub.questions.forEach((qDef) => {
         questionNumber++;
         const a = clientData.answers[qDef.id] || {};
-
         const selections = a.selections?.length ? a.selections : null;
         const freeText = a.value?.trim() || null;
-        const followUpChecks = a.followUpChecks?.length ? a.followUpChecks.join(", ") : null;
+        const followUpChecks = a.followUpChecks?.length
+          ? a.followUpChecks.join(", ")
+          : null;
         const goals = a.goals?.filter((g) => g.goal || g.amount || g.timeline);
-        const accountValues = a.accountValues && Object.keys(a.accountValues).length ? a.accountValues : null;
-
-        const hasAny = selections || freeText || followUpChecks || goals?.length || accountValues;
+        const accountValues =
+          a.accountValues && Object.keys(a.accountValues).length
+            ? a.accountValues
+            : null;
+        const hasAny =
+          selections || freeText || followUpChecks || goals?.length || accountValues;
 
         L.push(`Q${questionNumber}. ${qDef.q}`);
 
@@ -111,7 +118,9 @@ export function buildLLMExport(clientData) {
           if (freeText) L.push(`   → ${freeText}`);
           if (goals?.length) {
             goals.forEach((g, i) =>
-              L.push(`   → Goal ${i + 1}: ${g.goal || "[unnamed]"} | Target: ${g.amount || "[not specified]"} | Timeline: ${g.timeline || "[not specified]"}`)
+              L.push(
+                `   → Goal ${i + 1}: ${g.goal || "[unnamed]"} | Target: ${g.amount || "[not specified]"} | Timeline: ${g.timeline || "[not specified]"}`
+              )
             );
           }
         }
@@ -160,8 +169,8 @@ export function buildLLMExport(clientData) {
     "10. SIGNATURES — Blocks for client, co-client/spouse (if applicable per marital status), and advisor.",
     "",
     "FORMATTING REQUIREMENTS:",
-    "- Use formal, professional language appropriate for a legal/financial document.",
-    "- Where the client left a question unanswered ([NO RESPONSE PROVIDED]), note it as \"To be discussed\" or \"Pending client input\" — do not guess.",
+    '- Use formal, professional language appropriate for a legal/financial document.',
+    '- Where the client left a question unanswered ([NO RESPONSE PROVIDED]), note it as "To be discussed" or "Pending client input" — do not guess.',
     "- Include the client's name and date throughout as appropriate.",
     "- The IPS should be a standalone document ready for client review, not a summary of the questionnaire."
   );
