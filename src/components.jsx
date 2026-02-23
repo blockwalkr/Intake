@@ -63,9 +63,9 @@ const pill = (selected) => ({
   fontSize: 13,
   fontWeight: selected ? 600 : 500,
   cursor: "pointer",
-  border: selected ? "1.5px solid #2b6cb0" : "1.5px solid #cbd5e1",
-  background: selected ? "#d0e2f4" : "#fff",
-  color: selected ? "#0f2a44" : "#475569",
+  border: selected ? "1.5px solid #5E4D9C" : "1.5px solid #cbd5e1",
+  background: selected ? "#e8e4f2" : "#fff",
+  color: selected ? "#000000" : "#475569",
   transition: "all .15s",
   userSelect: "none",
   display: "inline-flex",
@@ -78,9 +78,9 @@ const smallPill = (selected) => ({
   ...pill(selected),
   padding: "6px 12px",
   fontSize: 12.5,
-  border: selected ? "1.5px solid #2b6cb0" : "1.5px solid #e2e8f0",
-  background: selected ? "#e8f0fa" : "#fafbfd",
-  color: selected ? "#0f2a44" : "#64748b",
+  border: selected ? "1.5px solid #5E4D9C" : "1.5px solid #e2e8f0",
+  background: selected ? "#E5E5DE" : "#f8f8f6",
+  color: selected ? "#000000" : "#64748b",
 });
 
 const inputBase = {
@@ -129,7 +129,7 @@ export function AutoTextarea({ value, onChange, placeholder, style, minRows }) {
         background: "#fff",
         ...style,
       }}
-      onFocus={(e) => (e.target.style.borderColor = "#2b6cb0")}
+      onFocus={(e) => (e.target.style.borderColor = "#5E4D9C")}
       onBlur={(e) =>
         (e.target.style.borderColor = style?.borderColor || "#cbd5e1")
       }
@@ -147,7 +147,7 @@ export function Toast({ message, visible }) {
         bottom: 24,
         left: "50%",
         transform: `translateX(-50%) translateY(${visible ? 0 : 20}px)`,
-        background: "#0f2a44",
+        background: "#000000",
         color: "#fff",
         padding: "10px 22px",
         borderRadius: 10,
@@ -275,7 +275,7 @@ export function QuestionBlock({ qDef, answer, onChange, num }) {
             fontFamily: "'Fraunces', serif",
             fontWeight: 700,
             fontSize: 14,
-            color: "#2b6cb0",
+            color: "#5E4D9C",
             minWidth: 28,
           }}
         >
@@ -318,7 +318,7 @@ export function QuestionBlock({ qDef, answer, onChange, num }) {
               >
                 {a.selections?.includes(o) && (
                   <span
-                    style={{ fontSize: 11, fontWeight: 800, color: "#2b6cb0" }}
+                    style={{ fontSize: 11, fontWeight: 800, color: "#5E4D9C" }}
                   >
                     ●
                   </span>
@@ -350,7 +350,7 @@ export function QuestionBlock({ qDef, answer, onChange, num }) {
                         style={{
                           fontSize: 10,
                           fontWeight: 800,
-                          color: "#2b6cb0",
+                          color: "#5E4D9C",
                         }}
                       >
                         ✓
@@ -394,7 +394,7 @@ export function QuestionBlock({ qDef, answer, onChange, num }) {
                       style={{
                         fontSize: 11,
                         fontWeight: 800,
-                        color: "#2b6cb0",
+                        color: "#5E4D9C",
                       }}
                     >
                       ✓
@@ -435,7 +435,7 @@ export function QuestionBlock({ qDef, answer, onChange, num }) {
                 onChange={(e) => setGoalField(i, "goal", e.target.value)}
                 placeholder="Goal (e.g., Retirement)"
                 style={{ ...inputBase, flex: 2 }}
-                onFocus={(e) => (e.target.style.borderColor = "#2b6cb0")}
+                onFocus={(e) => (e.target.style.borderColor = "#5E4D9C")}
                 onBlur={(e) => (e.target.style.borderColor = "#cbd5e1")}
               />
               <input
@@ -443,7 +443,7 @@ export function QuestionBlock({ qDef, answer, onChange, num }) {
                 onChange={(e) => setGoalField(i, "amount", e.target.value)}
                 placeholder="Target amount"
                 style={{ ...inputBase, flex: 1 }}
-                onFocus={(e) => (e.target.style.borderColor = "#2b6cb0")}
+                onFocus={(e) => (e.target.style.borderColor = "#5E4D9C")}
                 onBlur={(e) => (e.target.style.borderColor = "#cbd5e1")}
               />
               <input
@@ -451,7 +451,7 @@ export function QuestionBlock({ qDef, answer, onChange, num }) {
                 onChange={(e) => setGoalField(i, "timeline", e.target.value)}
                 placeholder="Timeline"
                 style={{ ...inputBase, flex: 1 }}
-                onFocus={(e) => (e.target.style.borderColor = "#2b6cb0")}
+                onFocus={(e) => (e.target.style.borderColor = "#5E4D9C")}
                 onBlur={(e) => (e.target.style.borderColor = "#cbd5e1")}
               />
               {goals.length > 1 && (
@@ -480,9 +480,9 @@ export function QuestionBlock({ qDef, answer, onChange, num }) {
             style={{
               padding: "7px 16px",
               borderRadius: 8,
-              border: "1.5px dashed #2b6cb0",
+              border: "1.5px dashed #5E4D9C",
               background: "rgba(43,108,176,.04)",
-              color: "#2b6cb0",
+              color: "#5E4D9C",
               fontSize: 12.5,
               fontWeight: 600,
               cursor: "pointer",
@@ -518,7 +518,7 @@ export function QuestionBlock({ qDef, answer, onChange, num }) {
                       style={{
                         fontSize: 11,
                         fontWeight: 800,
-                        color: "#2b6cb0",
+                        color: "#5E4D9C",
                       }}
                     >
                       ✓
@@ -532,7 +532,7 @@ export function QuestionBlock({ qDef, answer, onChange, num }) {
                     onChange={(e) => setAccountValue(o, e.target.value)}
                     placeholder="$ Balance"
                     style={{ ...inputBase, maxWidth: 180 }}
-                    onFocus={(e) => (e.target.style.borderColor = "#2b6cb0")}
+                    onFocus={(e) => (e.target.style.borderColor = "#5E4D9C")}
                     onBlur={(e) => (e.target.style.borderColor = "#cbd5e1")}
                   />
                 )}
@@ -582,7 +582,7 @@ export function SectionCard({
       <div
         onClick={onToggle}
         style={{
-          background: "linear-gradient(135deg, #0f2a44, #1a3a5c)",
+          background: "linear-gradient(135deg, #000000, #545459)",
           color: "#fff",
           padding: "16px 22px",
           display: "flex",
@@ -597,15 +597,15 @@ export function SectionCard({
             width: 34,
             height: 34,
             borderRadius: "50%",
-            border: "1.5px solid #c9a84c",
-            background: "rgba(201,168,76,.15)",
+            border: "1.5px solid #5E4D9C",
+            background: "rgba(94,77,156,.15)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             fontFamily: "'Fraunces', serif",
             fontWeight: 700,
             fontSize: 15,
-            color: "#c9a84c",
+            color: "#5E4D9C",
             flexShrink: 0,
           }}
         >
@@ -620,15 +620,6 @@ export function SectionCard({
             }}
           >
             {section.title}
-          </div>
-          <div
-            style={{
-              fontSize: 12,
-              color: "rgba(255,255,255,.5)",
-              marginTop: 1,
-            }}
-          >
-            {section.subtitle}
           </div>
         </div>
         <div
@@ -659,22 +650,6 @@ export function SectionCard({
       {/* Body */}
       {!collapsed && (
         <div style={{ padding: "6px 22px 22px" }}>
-          {section.instruction && (
-            <div
-              style={{
-                fontSize: 13,
-                color: "#475569",
-                fontStyle: "italic",
-                background: "#e8f0fa",
-                borderLeft: "3px solid #2b6cb0",
-                padding: "9px 13px",
-                borderRadius: "0 6px 6px 0",
-                margin: "12px 0 14px",
-              }}
-            >
-              {section.instruction}
-            </div>
-          )}
           {section.subsections.map((sub, si) => (
             <div key={si}>
               {sub.label && (
@@ -684,10 +659,10 @@ export function SectionCard({
                     fontWeight: 700,
                     textTransform: "uppercase",
                     letterSpacing: ".09em",
-                    color: "#2b6cb0",
+                    color: "#5E4D9C",
                     margin: "20px 0 10px",
                     paddingBottom: 5,
-                    borderBottom: "2px solid #e8f0fa",
+                    borderBottom: "2px solid #E5E5DE",
                     display: "flex",
                     alignItems: "center",
                     gap: 7,
@@ -697,7 +672,7 @@ export function SectionCard({
                     style={{
                       width: 3,
                       height: 14,
-                      background: "#2b6cb0",
+                      background: "#5E4D9C",
                       borderRadius: 2,
                     }}
                   />

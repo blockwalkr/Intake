@@ -264,7 +264,7 @@ export default function App() {
         display: "flex",
         height: "100vh",
         overflow: "hidden",
-        background: "#f1f5f9",
+        background: "#FFFFFF",
       }}
     >
       <Toast message={toast.message} visible={toast.visible} />
@@ -274,7 +274,7 @@ export default function App() {
         style={{
           width: sidebarOpen ? 280 : 0,
           minWidth: sidebarOpen ? 280 : 0,
-          background: "#0f2a44",
+          background: "#000000",
           color: "#fff",
           display: "flex",
           flexDirection: "column",
@@ -300,7 +300,7 @@ export default function App() {
               gap: 8,
             }}
           >
-            <span style={{ color: "#c9a84c" }}>IPS</span> Client Manager
+            <span style={{ color: "#5E4D9C" }}>IPS</span> Client Manager
           </div>
 
           {/* Search */}
@@ -343,9 +343,9 @@ export default function App() {
               width: "100%",
               padding: "9px 0",
               borderRadius: 8,
-              border: "1.5px dashed rgba(201,168,76,.5)",
-              background: "rgba(201,168,76,.08)",
-              color: "#c9a84c",
+              border: "1.5px dashed rgba(94,77,156,.5)",
+              background: "rgba(94,77,156,.08)",
+              color: "#5E4D9C",
               fontSize: 13,
               fontWeight: 600,
               cursor: "pointer",
@@ -400,7 +400,7 @@ export default function App() {
                   height: 32,
                   borderRadius: "50%",
                   background:
-                    activeId === c.id ? "#2b6cb0" : "rgba(255,255,255,.08)",
+                    activeId === c.id ? "#5E4D9C" : "rgba(255,255,255,.08)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -506,7 +506,7 @@ export default function App() {
                   style={{
                     fontWeight: 600,
                     fontSize: 15,
-                    color: "#0f2a44",
+                    color: "#000000",
                     whiteSpace: "nowrap",
                   }}
                 >
@@ -529,7 +529,7 @@ export default function App() {
                     style={{
                       height: "100%",
                       width: `${progressPct}%`,
-                      background: "linear-gradient(90deg, #c9a84c, #e8c75a)",
+                      background: "linear-gradient(90deg, #5E4D9C, #8b7bc7)",
                       borderRadius: 3,
                       transition: "width .4s",
                     }}
@@ -550,19 +550,11 @@ export default function App() {
               {/* Export buttons */}
               {[
                 {
-                  label: `Copy ${tabLabel} Prompt`,
-                  icon: Icons.file,
-                  onClick: copyLLMPrompt,
-                  bg: "transparent",
-                  color: "#2b6cb0",
-                  border: "1px solid #2b6cb0",
-                },
-                {
                   label: `Export ${tabLabel} for LLM`,
                   icon: Icons.download,
                   onClick: exportLLM,
-                  bg: "#c9a84c",
-                  color: "#0f2a44",
+                  bg: "#5E4D9C",
+                  color: "#FFFFFF",
                   border: "none",
                 },
                 {
@@ -570,7 +562,7 @@ export default function App() {
                   icon: Icons.download,
                   onClick: exportJSON,
                   bg: "transparent",
-                  color: "#475569",
+                  color: "#545459",
                   border: "1px solid #e2e8f0",
                 },
               ].map((btn) => (
@@ -617,12 +609,12 @@ export default function App() {
                   width: 72,
                   height: 72,
                   borderRadius: "50%",
-                  background: "#e8f0fa",
+                  background: "#E5E5DE",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   marginBottom: 16,
-                  color: "#2b6cb0",
+                  color: "#5E4D9C",
                 }}
               >
                 {Icons.user}
@@ -631,7 +623,7 @@ export default function App() {
                 style={{
                   fontFamily: "'Fraunces', serif",
                   fontSize: 22,
-                  color: "#0f2a44",
+                  color: "#000000",
                   marginBottom: 6,
                 }}
               >
@@ -658,7 +650,7 @@ export default function App() {
                   padding: "10px 24px",
                   borderRadius: 8,
                   border: "none",
-                  background: "#0f2a44",
+                  background: "#000000",
                   color: "#fff",
                   fontSize: 14,
                   fontWeight: 600,
@@ -720,7 +712,7 @@ export default function App() {
                       placeholder={f.placeholder}
                       style={underlineInput}
                       onFocus={(e) =>
-                        (e.target.style.borderBottomColor = "#2b6cb0")
+                        (e.target.style.borderBottomColor = "#5E4D9C")
                       }
                       onBlur={(e) =>
                         (e.target.style.borderBottomColor = "#e2e8f0")
@@ -759,7 +751,7 @@ export default function App() {
                         flex: 1,
                         padding: "12px 16px",
                         border: "none",
-                        background: active ? "#0f2a44" : "transparent",
+                        background: active ? "#000000" : "transparent",
                         color: active ? "#fff" : "#475569",
                         fontFamily: "'DM Sans', sans-serif",
                         fontSize: 13.5,
@@ -772,7 +764,7 @@ export default function App() {
                         gap: 8,
                       }}
                     >
-                      <span style={{ fontFamily: "'Fraunces', serif", color: active ? "#c9a84c" : "#94a3b8", fontWeight: 700 }}>
+                      <span style={{ fontFamily: "'Fraunces', serif", color: active ? "#5E4D9C" : "#94a3b8", fontWeight: 700 }}>
                         {tab.short}
                       </span>
                       <span style={{ display: "inline", fontSize: 12, opacity: 0.7 }}>
@@ -784,8 +776,8 @@ export default function App() {
                           fontWeight: 600,
                           padding: "2px 8px",
                           borderRadius: 12,
-                          background: active ? "rgba(201,168,76,.2)" : "#f1f5f9",
-                          color: active ? "#c9a84c" : "#94a3b8",
+                          background: active ? "rgba(94,77,156,.2)" : "#E5E5DE",
+                          color: active ? "#5E4D9C" : "#94a3b8",
                           marginLeft: 4,
                         }}
                       >
@@ -833,90 +825,6 @@ export default function App() {
                   ))}
                 </>
               )}
-
-              {/* Signatures */}
-              <div
-                style={{
-                  background: "#fff",
-                  borderRadius: 16,
-                  boxShadow: "0 2px 8px rgba(15,42,68,.06)",
-                  border: "1px solid #e2e8f0",
-                  padding: 28,
-                  marginTop: 12,
-                }}
-              >
-                <h3
-                  style={{
-                    fontFamily: "'Fraunces', serif",
-                    fontSize: 18,
-                    color: "#0f2a44",
-                    marginBottom: 10,
-                  }}
-                >
-                  Acknowledgment
-                </h3>
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: "#475569",
-                    lineHeight: 1.7,
-                    marginBottom: 24,
-                  }}
-                >
-                  I confirm that the information provided is accurate and
-                  complete. I agree to notify my advisor of material changes.
-                </p>
-                {[
-                  "Client Signature",
-                  "Co-Client / Spouse (if applicable)",
-                  "Investment Advisor Representative",
-                ].map((label) => (
-                  <div
-                    key={label}
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "2fr 1fr",
-                      gap: 16,
-                      marginBottom: 14,
-                    }}
-                  >
-                    <div>
-                      <div
-                        style={{
-                          fontSize: 10.5,
-                          fontWeight: 700,
-                          textTransform: "uppercase",
-                          letterSpacing: ".08em",
-                          color: "#94a3b8",
-                          marginBottom: 5,
-                        }}
-                      >
-                        {label}
-                      </div>
-                      <input
-                        type="text"
-                        placeholder="Type full name"
-                        style={underlineInput}
-                      />
-                    </div>
-                    <div>
-                      <div
-                        style={{
-                          fontSize: 10.5,
-                          fontWeight: 700,
-                          textTransform: "uppercase",
-                          letterSpacing: ".08em",
-                          color: "#94a3b8",
-                          marginBottom: 5,
-                        }}
-                      >
-                        Date
-                      </div>
-                      <input type="date" style={underlineInput} />
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           )}
         </div>
@@ -950,7 +858,7 @@ export default function App() {
               style={{
                 fontFamily: "'Fraunces', serif",
                 fontSize: 20,
-                color: "#0f2a44",
+                color: "#000000",
                 marginBottom: 16,
               }}
             >
@@ -997,7 +905,7 @@ export default function App() {
                   padding: "8px 22px",
                   borderRadius: 8,
                   border: "none",
-                  background: "#0f2a44",
+                  background: "#000000",
                   color: "#fff",
                   fontSize: 13,
                   fontWeight: 600,
