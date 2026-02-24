@@ -1,0 +1,364 @@
+{
+  "clientName": "Example",
+  "date": "2026-02-24",
+  "advisor": "Andy Example",
+  "answers": {
+    "q1": {
+      "value": "Example Exampleson, 01/01/01, example@example.com"
+    },
+    "q2": {
+      "selections": [
+        "Married"
+      ],
+      "value": "Dwight Exampleson, 18\nElsa Inample, 12"
+    },
+    "q3": {
+      "selections": [
+        "Employed Full-Time"
+      ],
+      "value": "Principal at Example Media"
+    },
+    "q4": {
+      "value": "250k"
+    },
+    "q5": {
+      "value": "Monthly: 10k\nYearly: 200k"
+    },
+    "q6": {
+      "assets": "House: $2M\nSecurities: $1.5M\nDigital Assets: $1M",
+      "liabilities": "Mortgage: $1M"
+    },
+    "q7": {
+      "value": "Investment: 500k Schwab account\nRetirement: 500k IRA & 400K Roth IRA\nBank: 100k"
+    },
+    "q8": {
+      "value": "500k of securities are restricted ownership in family business"
+    },
+    "q9": {
+      "selections": [
+        "Individual",
+        "Trust"
+      ],
+      "value": "They're outdated"
+    },
+    "q10": {
+      "selections": [
+        "Universal Life"
+      ],
+      "value": "Cash value of 100k"
+    },
+    "q11": {
+      "selections": [
+        "None"
+      ]
+    },
+    "q12": {
+      "selections": [
+        "Intermediate"
+      ],
+      "followUpChecks": [
+        "Cryptocurrency",
+        "Stocks",
+        "Real Estate",
+        "Mutual Funds/ETFs"
+      ]
+    },
+    "q13": {
+      "value": "Yes. They optimized taxes well, but were uncomfortable going into anything that wasn't industry standard recommendations"
+    },
+    "q14": {
+      "value": "Yes. Will be provided in a follow up email."
+    },
+    "q15": {
+      "value": "Yes"
+    },
+    "q16": {
+      "selections": [
+        "Aggressive Growth",
+        "Income Generation"
+      ]
+    },
+    "q17": {
+      "goals": [
+        {
+          "goal": "Retirement",
+          "amount": "2.5M",
+          "timeline": "17 years"
+        },
+        {
+          "goal": "College",
+          "amount": "100k",
+          "timeline": "4"
+        },
+        {
+          "goal": "test",
+          "amount": "500k",
+          "timeline": ""
+        }
+      ]
+    },
+    "q18": {
+      "value": "Yes, 50k annually"
+    },
+    "q19": {
+      "selections": [
+        "Equal Priority"
+      ],
+      "value": "Considering bar bell of income from stables with higher allocation to Digital Asset alts"
+    },
+    "q20": {
+      "selections": [
+        "Avoid Fossil Fuels"
+      ]
+    },
+    "q21": {
+      "selections": [
+        "Hold Steady"
+      ],
+      "value": "Hold steady and considering increasing exposure"
+    },
+    "q22": {
+      "selections": [
+        "60%"
+      ],
+      "value": "Up to 65%"
+    },
+    "q23": {
+      "value": "Nothing more than 15% in a year"
+    },
+    "q24": {
+      "selections": [
+        "3\u20136 months"
+      ],
+      "value": "Held in money markets"
+    },
+    "q25": {
+      "value": "Employment is unclear after a year. Fear of familial diagnosis of major disease given hereditary conditions."
+    },
+    "q26": {
+      "selections": [
+        "Somewhat Variable"
+      ],
+      "value": "Likely goes away or gains substantially"
+    },
+    "q27": {
+      "selections": [
+        "Medium-Term (5\u201310 yr)"
+      ],
+      "value": "Expected steady contributions for 5 years and then dependent from there"
+    },
+    "q28": {
+      "value": "Starting in 4 years"
+    },
+    "q30": {
+      "selections": [
+        "Somewhat Flexible"
+      ],
+      "value": "Some are flexible, others aren't"
+    },
+    "q29": {
+      "value": "Opportunistic withdrawals in 4 years\nCollege in 4 Years\nRetirement growth with remaining"
+    },
+    "q31": {
+      "selections": [
+        "20%+"
+      ],
+      "value": "Prefers highly liquid investments"
+    },
+    "q32": {
+      "value": "None"
+    },
+    "q33": {
+      "value": "500k from restricted family business equity"
+    },
+    "q34": {
+      "selections": [
+        "Married Filing Jointly"
+      ],
+      "value": "32%"
+    },
+    "q35": {
+      "selections": [
+        "Traditional IRA",
+        "Roth IRA",
+        "HSA"
+      ],
+      "accountValues": {
+        "Traditional IRA": "500k",
+        "Roth IRA": "400k",
+        "HSA": "10k"
+      }
+    },
+    "q36": {
+      "value": "1M of tax loss carry forwards and 1M of unrealized gains"
+    },
+    "q37": {
+      "selections": [
+        "Very Important"
+      ]
+    },
+    "q38": {
+      "value": "None"
+    },
+    "q39": {
+      "value": "Wants to give 50k to charity annually"
+    },
+    "q40": {
+      "value": "None"
+    },
+    "q41": {
+      "value": "Trust imposing strict responsable investor guidelines"
+    },
+    "q42": {
+      "value": "Works on DeFi project"
+    },
+    "q43": {
+      "value": "None"
+    },
+    "q44": {
+      "value": "Possible Cancer diagnosis for self and children"
+    },
+    "q45": {
+      "value": "Doesn't want infighting over estate"
+    },
+    "q46": {
+      "selections": [
+        "Comfortable"
+      ],
+      "value": "Fine with it, but wary given the volatility "
+    },
+    "q47": {
+      "selections": [
+        "Passive/Index",
+        "Active",
+        "ETFs",
+        "SMAs"
+      ],
+      "value": "Likes exposure to both approaches"
+    },
+    "q48": {
+      "value": "No"
+    },
+    "q49": {
+      "value": "Wife"
+    },
+    "q50": {
+      "value": "Wife and Example"
+    },
+    "q52": {
+      "selections": [
+        "Quarterly"
+      ]
+    },
+    "q53": {
+      "selections": [
+        "Semi-Annually"
+      ]
+    },
+    "q54": {
+      "selections": [
+        "In-Person",
+        "Video Calls"
+      ]
+    },
+    "q55": {
+      "value": "Health diagnosis"
+    },
+    "cps1": {
+      "selections": [
+        "Intermediate"
+      ],
+      "value": "Multisig wallet experience, but not actively engaged in DeFi"
+    },
+    "cps2": {
+      "selections": [
+        "NFTs",
+        "DeFi Tokens",
+        "Bitcoin"
+      ]
+    },
+    "cps3": {
+      "selections": [
+        "$100,000\u2013$250,000"
+      ]
+    },
+    "cps4": {
+      "selections": [
+        "ETFs",
+        "Digital Asset Trusts (DATs)",
+        "Exchange (e.g., Coinbase, Kraken)",
+        "Hardware Wallet (e.g., Ledger, Trezor)"
+      ],
+      "value": "Multisig on SAFE"
+    },
+    "cps5": {
+      "value": "Lost password to Ledger, but might be able to recover. "
+    },
+    "cps6": {
+      "selections": [
+        "Unsure \u2014 Need Guidance"
+      ],
+      "value": "Doesn't want as much personal responsibility "
+    },
+    "cps7": {
+      "selections": [
+        "Prefer Custodial Service"
+      ]
+    },
+    "cps8": {
+      "selections": [
+        "Yes, Fully Aware"
+      ]
+    },
+    "cps9": {
+      "selections": [
+        "Multi-Signature Wallets",
+        "Institutional-Grade Security",
+        "Insurance Against Theft/Loss"
+      ]
+    },
+    "cps10": {
+      "selections": [
+        "Seed Phrase Backups",
+        "Password Manager"
+      ]
+    },
+    "cps11": {
+      "selections": [
+        "Long-Term Investment (HODL)",
+        "DeFi Participation",
+        "Portfolio Diversification"
+      ]
+    },
+    "cps12": {
+      "selections": [
+        "Weekly"
+      ]
+    },
+    "cps13": {
+      "value": "Would love to have the option to spend stablecoins"
+    },
+    "cps14": {
+      "selections": [
+        "Need Guidance on Options"
+      ],
+      "value": "Wants to spend as little as possible"
+    },
+    "cps15": {
+      "value": "Kansas, USA"
+    },
+    "cps16": {
+      "selections": [
+        "Not Aware \u2014 Need Education"
+      ]
+    },
+    "cps17": {
+      "selections": [
+        "No \u2014 Need to Create One"
+      ],
+      "value": "Some digital assets are property of a trust, but there's no succession plan"
+    }
+  },
+  "createdAt": 1771968856016,
+  "updatedAt": 1771968856016
+}

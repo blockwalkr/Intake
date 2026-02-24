@@ -43,6 +43,8 @@ export default function App() {
   const [showModal, setShowModal] = useState(false);
   const [newName, setNewName] = useState("");
   const [toast, setToast] = useState({ message: "", visible: false });
+  const [renamingId, setRenamingId] = useState(null);
+  const [renameValue, setRenameValue] = useState("");
   const saveTimer = useRef(null);
 
   const showToast = (msg) => {
@@ -88,6 +90,20 @@ export default function App() {
     },
     [activeId]
   );
+
+  const manualSave = async () => {
+    if (!activeId || !clientData) return;
+    if (saveTimer.current) clearTimeout(saveTimer.current);
+    const updated = await saveClientData(activeId, clientData);
+    setClients((prev) =>
+      prev.map((c) =>
+        c.id === activeId
+          ? { ...c, name: updated.clientName, updatedAt: updated.updatedAt }
+          : c
+      )
+    );
+    showToast("Saved successfully!");
+  };
 
   const updateField = (field, value) => {
     setClientData((prev) => {
@@ -135,6 +151,37 @@ export default function App() {
       setActiveId(null);
       setClientData(null);
     }
+  };
+
+  const startRename = (id, currentName) => {
+    setRenamingId(id);
+    setRenameValue(currentName);
+  };
+
+  const commitRename = async () => {
+    if (!renamingId) return;
+    const trimmed = renameValue.trim();
+    if (!trimmed) { setRenamingId(null); return; }
+
+    // Update client list
+    setClients((prev) =>
+      prev.map((c) => (c.id === renamingId ? { ...c, name: trimmed } : c))
+    );
+
+    // If this is the active client, also update clientData and save
+    if (activeId === renamingId && clientData) {
+      const updated = { ...clientData, clientName: trimmed };
+      setClientData(updated);
+      await saveClientData(renamingId, updated);
+    } else {
+      // Load, update, and save for non-active client
+      const data = await loadClientData(renamingId);
+      if (data) {
+        await saveClientData(renamingId, { ...data, clientName: trimmed });
+      }
+    }
+
+    setRenamingId(null);
   };
 
   // ── Exports ──
@@ -411,17 +458,49 @@ export default function App() {
                 {Icons.user}
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div
-                  style={{
-                    fontSize: 13.5,
-                    fontWeight: 600,
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                >
-                  {c.name}
-                </div>
+                {renamingId === c.id ? (
+                  <input
+                    autoFocus
+                    value={renameValue}
+                    onChange={(e) => setRenameValue(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") commitRename();
+                      if (e.key === "Escape") setRenamingId(null);
+                    }}
+                    onBlur={commitRename}
+                    onClick={(e) => e.stopPropagation()}
+                    style={{
+                      width: "100%",
+                      padding: "2px 6px",
+                      borderRadius: 4,
+                      border: "1px solid rgba(94,77,156,.5)",
+                      background: "rgba(255,255,255,.12)",
+                      color: "#fff",
+                      fontSize: 13.5,
+                      fontWeight: 600,
+                      outline: "none",
+                      fontFamily: "'DM Sans', sans-serif",
+                    }}
+                  />
+                ) : (
+                  <div
+                    onDoubleClick={(e) => {
+                      e.stopPropagation();
+                      startRename(c.id, c.name);
+                    }}
+                    title="Double-click to rename"
+                    style={{
+                      fontSize: 13.5,
+                      fontWeight: 600,
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      cursor: "text",
+                    }}
+                  >
+                    {c.name}
+                  </div>
+                )}
                 <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)" }}>
                   {new Date(c.updatedAt).toLocaleDateString()}
                 </div>
@@ -804,6 +883,27 @@ export default function App() {
                       }
                     />
                   ))}
+                  <div style={{ display: "flex", justifyContent: "center", marginTop: 24, marginBottom: 12 }}>
+                    <button
+                      onClick={manualSave}
+                      style={{
+                        padding: "12px 40px",
+                        borderRadius: 8,
+                        border: "none",
+                        background: "#000000",
+                        color: "#fff",
+                        fontSize: 14,
+                        fontWeight: 600,
+                        cursor: "pointer",
+                        fontFamily: "'DM Sans', sans-serif",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                      }}
+                    >
+                      {Icons.download} Save IPS
+                    </button>
+                  </div>
                 </>
               )}
 
@@ -823,6 +923,27 @@ export default function App() {
                       }
                     />
                   ))}
+                  <div style={{ display: "flex", justifyContent: "center", marginTop: 24, marginBottom: 12 }}>
+                    <button
+                      onClick={manualSave}
+                      style={{
+                        padding: "12px 40px",
+                        borderRadius: 8,
+                        border: "none",
+                        background: "#000000",
+                        color: "#fff",
+                        fontSize: 14,
+                        fontWeight: 600,
+                        cursor: "pointer",
+                        fontFamily: "'DM Sans', sans-serif",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                      }}
+                    >
+                      {Icons.download} Save CPS
+                    </button>
+                  </div>
                 </>
               )}
             </div>

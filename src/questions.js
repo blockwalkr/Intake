@@ -73,7 +73,7 @@ const SECTIONS = [
           {
             id: "q6",
             q: "What is your approximate net worth? Please list major assets and liabilities.",
-            type: "text",
+            type: "assets_liabilities",
           },
         ],
       },
@@ -143,7 +143,7 @@ const SECTIONS = [
         questions: [
           {
             id: "q12",
-            q: "What is your level of investment experience?",
+            q: "What is your level of investment experience? What asset classes have you invested in?",
             type: "combo",
             options: ["Beginner", "Intermediate", "Advanced"],
             radioName: "experience",
@@ -170,7 +170,7 @@ const SECTIONS = [
         questions: [
           {
             id: "q14",
-            q: "Do you have an existing financial plan, IPS, or estate plan we should review?",
+            q: "Do you have an existing financial plan, IPS, or estate plan we should review? If so, how can we access it?",
             type: "text",
           },
           {
@@ -262,6 +262,50 @@ const SECTIONS = [
 
   {
     num: 3,
+    title: "Time Horizon",
+    subtitle: "Duration and flexibility",
+    instruction: "Affects volatility tolerance and appropriate investments.",
+    subsections: [
+      {
+        label: null,
+        questions: [
+          {
+            id: "q27",
+            q: "Expected investment duration?",
+            type: "combo",
+            options: [
+              "Short-Term (< 5 yr)",
+              "Medium-Term (5–10 yr)",
+              "Long-Term (10+ yr)",
+            ],
+            radioName: "timeHorizon",
+            followUp: "Target date/age:",
+          },
+          {
+            id: "q28",
+            q: "When do you anticipate needing funds?",
+            type: "text",
+          },
+          {
+            id: "q29",
+            q: "Multiple time horizons for different goals?",
+            type: "text",
+          },
+          {
+            id: "q30",
+            q: "How flexible is your timeline?",
+            type: "combo",
+            options: ["Very Flexible", "Somewhat Flexible", "Not Flexible"],
+            radioName: "flexibility",
+            followUp: "Notes:",
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    num: 4,
     title: "Risk Tolerance",
     subtitle: "Willingness and capacity to accept risk",
     instruction:
@@ -272,7 +316,7 @@ const SECTIONS = [
         questions: [
           {
             id: "q21",
-            q: "How would you react to a 20% portfolio decline?",
+            q: "How would you react to a 50% portfolio decline?",
             type: "combo",
             options: ["Sell Everything", "Sell Some", "Hold Steady", "Buy More"],
             radioName: "marketReaction",
@@ -282,7 +326,7 @@ const SECTIONS = [
             id: "q22",
             q: "Maximum annual decline you could tolerate?",
             type: "combo",
-            options: ["5% or less", "10%", "15%", "20%", "25%", "30%+"],
+            options: ["10%", "20%", "30%", "40%", "50%", "60%", "70%+"],
             radioName: "maxDrawdown",
             followUp: "Notes:",
           },
@@ -326,50 +370,6 @@ const SECTIONS = [
             ],
             radioName: "incomeStability",
             followUp: "Details:",
-          },
-        ],
-      },
-    ],
-  },
-
-  {
-    num: 4,
-    title: "Time Horizon",
-    subtitle: "Duration and flexibility",
-    instruction: "Affects volatility tolerance and appropriate investments.",
-    subsections: [
-      {
-        label: null,
-        questions: [
-          {
-            id: "q27",
-            q: "Expected investment duration?",
-            type: "combo",
-            options: [
-              "Short-Term (< 5 yr)",
-              "Medium-Term (5–10 yr)",
-              "Long-Term (10+ yr)",
-            ],
-            radioName: "timeHorizon",
-            followUp: "Target date/age:",
-          },
-          {
-            id: "q28",
-            q: "When do you anticipate needing funds?",
-            type: "text",
-          },
-          {
-            id: "q29",
-            q: "Multiple time horizons for different goals?",
-            type: "text",
-          },
-          {
-            id: "q30",
-            q: "How flexible is your timeline?",
-            type: "combo",
-            options: ["Very Flexible", "Somewhat Flexible", "Not Flexible"],
-            radioName: "flexibility",
-            followUp: "Notes:",
           },
         ],
       },
@@ -686,11 +686,12 @@ export const CPS_SECTIONS = [
             q: "Approximately what is the total value of your crypto holdings?",
             type: "combo",
             options: [
-              "Under $10,000",
-              "$10,000–$50,000",
-              "$50,000–$250,000",
-              "$250,000–$1M",
-              "Over $1M",
+              "$50,000–$100,000",
+              "$100,000–$250,000",
+              "$250,000–$500,000",
+              "$500,000–$1M",
+              "$1M–$2.5M",
+              "Over $2.5M",
             ],
             radioName: "cryptoValue",
             followUp: "Additional context:",

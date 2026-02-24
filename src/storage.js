@@ -48,13 +48,15 @@ export async function deleteClientData(id) {
 
 export function isAnswered(answer) {
   if (!answer) return false;
-  const { selections, value, followUpChecks, goals, accountValues } = answer;
+  const { selections, value, followUpChecks, goals, accountValues, assets, liabilities } = answer;
   return (
     (selections?.length > 0) ||
     (value?.trim()?.length > 0) ||
     (followUpChecks?.length > 0) ||
     (goals?.some((g) => g.goal || g.amount || g.timeline)) ||
-    (accountValues && Object.keys(accountValues).length > 0)
+    (accountValues && Object.keys(accountValues).length > 0) ||
+    (assets?.trim()?.length > 0) ||
+    (liabilities?.trim()?.length > 0)
   );
 }
 
@@ -192,8 +194,10 @@ function formatQuestionAnswer(L, questionNumber, qDef, answers) {
     a.accountValues && Object.keys(a.accountValues).length
       ? a.accountValues
       : null;
+  const assetsText = a.assets?.trim() || null;
+  const liabilitiesText = a.liabilities?.trim() || null;
   const hasAny =
-    selections || freeText || followUpChecks || goals?.length || accountValues;
+    selections || freeText || followUpChecks || goals?.length || accountValues || assetsText || liabilitiesText;
 
   L.push(`Q${questionNumber}. ${qDef.q}`);
 
@@ -210,6 +214,8 @@ function formatQuestionAnswer(L, questionNumber, qDef, answers) {
     }
     if (followUpChecks) L.push(`   → Also: ${followUpChecks}`);
     if (freeText) L.push(`   → ${freeText}`);
+    if (assetsText) L.push(`   → Assets: ${assetsText}`);
+    if (liabilitiesText) L.push(`   → Liabilities: ${liabilitiesText}`);
     if (goals?.length) {
       goals.forEach((g, i) =>
         L.push(

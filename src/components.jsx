@@ -541,6 +541,52 @@ export function QuestionBlock({ qDef, answer, onChange, num }) {
           })}
         </div>
       )}
+
+      {/* assets_liabilities (two-column text areas) */}
+      {q.type === "assets_liabilities" && (
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: ".08em",
+                color: "#5E4D9C",
+                marginBottom: 6,
+              }}
+            >
+              Assets
+            </div>
+            <AutoTextarea
+              value={a.assets}
+              onChange={(e) => onChange({ ...a, assets: e.target.value })}
+              placeholder="e.g., Primary residence: $500K&#10;Investment accounts: $200K&#10;Vehicles: $40K"
+              minRows={4}
+            />
+          </div>
+          <div>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: ".08em",
+                color: "#545459",
+                marginBottom: 6,
+              }}
+            >
+              Liabilities
+            </div>
+            <AutoTextarea
+              value={a.liabilities}
+              onChange={(e) => onChange({ ...a, liabilities: e.target.value })}
+              placeholder="e.g., Mortgage: $300K&#10;Student loans: $50K&#10;Auto loan: $15K"
+              minRows={4}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
