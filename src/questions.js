@@ -72,7 +72,7 @@ const SECTIONS = [
             options: ["Yes", "No"],
             radioName: "incomeStable3yr",
             followUp: "Please provide each year's annual income over the past three years:",
-            followUpWhen: "Yes",
+            followUpWhen: "No",
           },
           {
             id: "q5",
