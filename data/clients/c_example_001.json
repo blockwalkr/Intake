@@ -108,8 +108,9 @@
     },
     "q20": {
       "selections": [
-        "Avoid Fossil Fuels"
-      ]
+        "Yes"
+      ],
+      "value": "Avoid Fossil Fuels"
     },
     "q21": {
       "selections": [
@@ -122,9 +123,6 @@
         "60%"
       ],
       "value": "Up to 65%"
-    },
-    "q23": {
-      "value": "Nothing more than 15% in a year"
     },
     "q24": {
       "selections": [
@@ -285,7 +283,7 @@
     "cps4": {
       "selections": [
         "ETFs",
-        "Digital Asset Trusts (DATs)",
+        "Digital Asset Treasury Company (DATs)",
         "Exchange (e.g., Coinbase, Kraken)",
         "Hardware Wallet (e.g., Ledger, Trezor)"
       ],
@@ -325,7 +323,7 @@
     },
     "cps11": {
       "selections": [
-        "Long-Term Investment (HODL)",
+        "Long-Term Investment",
         "DeFi Participation",
         "Portfolio Diversification"
       ]
@@ -340,7 +338,7 @@
     },
     "cps14": {
       "selections": [
-        "Need Guidance on Options"
+        "Needs Guidance"
       ],
       "value": "Wants to spend as little as possible"
     },

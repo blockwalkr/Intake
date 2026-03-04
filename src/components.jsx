@@ -362,7 +362,7 @@ export function QuestionBlock({ qDef, answer, onChange, num }) {
               })}
             </div>
           )}
-          {q.followUp && (
+          {q.followUp && (!q.followUpWhen || a.selections?.includes(q.followUpWhen)) && (
             <AutoTextarea
               value={a.value}
               onChange={(e) => onChange({ ...a, value: e.target.value })}

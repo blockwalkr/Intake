@@ -347,7 +347,7 @@ export default function App() {
               gap: 8,
             }}
           >
-            <span style={{ color: "#5E4D9C" }}>IPS</span> Client Manager
+            <span style={{ color: "#5E4D9C" }}>Policy</span> Statement Manager
           </div>
 
           {/* Search */}
